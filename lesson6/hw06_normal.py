@@ -64,7 +64,7 @@ class SchoolClass:
         if isinstance(new_pupil, Pupil):
             if new_pupil not in self._pupils:
                 self._pupils.append(new_pupil)
-                new_pupil._school = self
+                new_pupil._class = self
             else:
                 print("Такой ученик уже есть в этом классе!")
         else:
@@ -105,6 +105,10 @@ class SchoolClass:
                 result.append(self._lessons_and_teachers[each])
         return result
 
+    @property
+    def get_all_lessons(self):
+        return self._lessons_and_teachers.keys()
+
 
 class Human:
     def __init__(self, name, surname):
@@ -136,12 +140,12 @@ class Human:
 class Pupil(Human):
     def __init__(self, name, surname):
         super().__init__(name, surname)
-        self._school = None
+        self._class = None
 
     @property
     def get_all_lessons_of_pupil(self):
         try:
-            return self._school._lessons_and_teachers.keys()
+            return self._class.get_all_lessons
         except AttributeError:
             print("Ученик не назначен в класс")
 
